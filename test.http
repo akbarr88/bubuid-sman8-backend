@@ -1,0 +1,34 @@
+###
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "bananaka@gmail.com",
+  "password": "bananaka"
+}
+
+###
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+ "nama" : "bananaka",
+ "email" : "bananaka@gmail.com",
+ "password" : "bananaka",
+ "umur" : "15",
+ "sekolah" : "smp6padang",
+ "jenis_kelamin" : "pria"
+}
+
+###
+GET http://localhost:3000/lapor/
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJiYW5hbmFrYUBnbWFpbC5jb20iLCJpYXQiOjE3MTU2MjUyOTd9.Ko9C79T3Plq7lPO6lt39P7GRIVFih2RP9TIqUmpbLSo
+
+###
+POST http://localhost:3000/lapor
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJiYW5hbmFrYUBnbWFpbC5jb20iLCJpYXQiOjE3MTU2MjUyOTd9.Ko9C79T3Plq7lPO6lt39P7GRIVFih2RP9TIqUmpbLSo
+Content-Type: application/json
+
+{
+  "keterangan": "lapor udah mau turu"
+}
