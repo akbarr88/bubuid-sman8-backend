@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
   class Lapor extends Model {
     static associate(models) {
       Lapor.belongsTo(models.User, { foreignKey: "user_id" });
+      Lapor.hasOne(models.Status, { foreignKey: "lapor_id" });
     }
   }
 

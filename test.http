@@ -26,9 +26,18 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiO
 
 ###
 POST http://localhost:3000/lapor
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJiYW5hbmFrYUBnbWFpbC5jb20iLCJpYXQiOjE3MTU2MjUyOTd9.Ko9C79T3Plq7lPO6lt39P7GRIVFih2RP9TIqUmpbLSo
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJiYW5hbmFrYUBnbWFpbC5jb20iLCJpYXQiOjE3MTU2NjczMTZ9.3mHnlMx66PtHzkMalKOw4DSoiSSwNEptWNzmbI2TUHg
 Content-Type: application/json
 
 {
-  "keterangan": "lapor udah mau turu"
+  "keterangan": "laporan kedua dikirim"
 }
+
+### 
+DELETE http://localhost:3000/lapor/8
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJiYW5hbmFrYUBnbWFpbC5jb20iLCJpYXQiOjE3MTU2NjM0NjZ9.PF5kpOiQedVoAmbRtfd2eyTYLHNjKh9BfLN52seqRn8
+
+###
+PATCH  http://localhost:3000/lapor/7/true
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJiYW5hbmFrYUBnbWFpbC5jb20iLCJpYXQiOjE3MTU2NjM0NjZ9.PF5kpOiQedVoAmbRtfd2eyTYLHNjKh9BfLN52seqRn8
+Content-Type: application/json

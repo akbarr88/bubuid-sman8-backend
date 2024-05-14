@@ -6,7 +6,7 @@ const userRoute = require("./user.route");
 const authRoute = require("./auth.route");
 const psikologRoute = require("./psikolog.route");
 const konselingRoute = require("./konseling.route");
-const laporRoute = require("./lapor.routes")
+const laporRoute = require("./lapor.routes");
 
 route.get("/", (req, res) => {
   res.json("selamat datang di express sequelize migration");

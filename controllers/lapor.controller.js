@@ -3,15 +3,19 @@ const { User } = require("../models");
 const db = require("../models");
 const { Psikolog } = require("../models");
 const { Lapor } = require("../models");
+const { Status } = require("../models");
 const jwt = require("jsonwebtoken");
 
 module.exports = {
   getAllLapor: async (req, res) => {
     const lapor = await Lapor.findAll({
-      include: {
-        model: db.User,
-        attributes: ["id", "nama", "email"],
-      },
+      include: [
+        { model: db.User, attributes: ["id", "nama", "email"] },
+        {
+          model: db.Status,
+          attributes: ["id", "verified"], // Add the desired status field name here
+        },
+      ],
     });
     res.json({
       message: "berhasil mendapatkan data Lapor",
@@ -39,17 +43,23 @@ module.exports = {
       data: lapor,
     });
   },
+
   addNewLapor: async (req, res) => {
-    // const data = req.body;
     const token = req.headers.authorization.split(" ")[1];
     const decoded = jwt.verify(token, process.env.JWT_KEY);
     const { id } = decoded;
     const { tanggal, keterangan } = req.body;
-    await Lapor.create({ tanggal, keterangan, user_id: id });
+    const newLapor = await Lapor.create({ tanggal, keterangan, user_id: id });
+    await Status.create({
+      verified: false,
+      lapor_id: newLapor.id,
+    });
+
     res.status(201).json({
       message: "Berhasil menambahkan Lapor",
     });
   },
+
   deleteLapor: async (req, res) => {
     try {
       const { id } = req.params;
@@ -70,13 +80,27 @@ module.exports = {
   },
   updateLapor: async (req, res) => {
     try {
-      const { id } = req.params;
-      const data = req.body;
-      await Lapor.update(data, {
-        where: {
-          id: id,
-        },
-      });
+      const { id, status } = req.params;
+      console.log(id, status);
+      if (!status) {
+        const data = req.body;
+        await Lapor.update(data, {
+          where: {
+            id: id,
+          },
+        });
+      }
+
+      if (status) {
+        await Status.update(
+          { verified: status },
+          {
+            where: {
+              lapor_id: id,
+            },
+          }
+        );
+      }
 
       res.status(201).json({
         message: "Berhasil mengupdate data Lapor",
