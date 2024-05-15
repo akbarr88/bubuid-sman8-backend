@@ -23,6 +23,12 @@ module.exports = {
   },
 
   addNewArtikel: async (req, res) => {
+    const user = req.user;
+    if (user.role !== "admin") {
+      return res.status(403).json({
+        message: "Anda bukan admin",
+      });
+    }
     const {
       highlight_isi = "headline",
       judul = "judul",

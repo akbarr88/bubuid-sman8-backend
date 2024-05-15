@@ -23,9 +23,11 @@ module.exports = {
         {
           id: user.id,
           email: user.email,
+          role: user.role,
         },
         process.env.JWT_KEY
       );
+      res.cookie("token", token, { httpOnly: true, path: "/" });
       res.json({
         message: "berhasil login",
         token,
