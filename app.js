@@ -3,7 +3,6 @@ const app = express();
 const allRoutes = require("./routes");
 const cors = require("cors");
 const path = require("path");
-const multer = require("multer");
 const cookieParser = require("cookie-parser");
 
 const PORT = process.env.PORT || 3000;

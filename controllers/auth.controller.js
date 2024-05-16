@@ -32,6 +32,7 @@ module.exports = {
         message: "berhasil login",
         token,
         id_user: user.id,
+        role: user.role,
       });
     } catch (error) {
       res.status(400).json(error.message);
