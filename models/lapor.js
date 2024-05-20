@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
   Lapor.init(
     {
       tanggal: DataTypes.DATE,
-      keterangan: DataTypes.STRING,
+      keterangan: DataTypes.TEXT,
       img: DataTypes.STRING,
       user_id: {
         type: DataTypes.INTEGER,
