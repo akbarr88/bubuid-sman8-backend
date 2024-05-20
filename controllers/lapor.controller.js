@@ -34,7 +34,7 @@ module.exports = {
       where: { id: laporId },
       include: {
         model: db.User,
-        attributes: ["id", "nama", "email"],
+        attributes: ["id", "nama", "email", "umur", "jenis_kelamin", "sekolah"],
       },
     });
 
