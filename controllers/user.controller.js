@@ -6,12 +6,23 @@ const { where } = require("sequelize");
 
 module.exports = {
   getAllUser: async (req, res) => {
+    const page = parseInt(req.query.page) || 1;
+    const pageSize = parseInt(req.query.pageSize) || 10;
+    const offset = (page - 1) * pageSize;
+    const limit = pageSize;
     try {
-      const users = await User.findAll();
+      const users = await User.findAndCountAll({
+        offset,
+        limit,
+      });
 
       res.json({
+        totalItems: users.count,
+        totalPages: Math.ceil(users.count / pageSize),
+        currentPage: page,
+        pageSize,
         message: "berhasil mendapatkan data user",
-        data: users,
+        data: users.rows,
       });
     } catch (error) {
       error: error.message;

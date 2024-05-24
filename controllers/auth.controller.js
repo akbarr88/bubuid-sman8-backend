@@ -27,7 +27,11 @@ module.exports = {
         },
         process.env.JWT_KEY
       );
-      res.cookie("token", token, { httpOnly: true, path: "/" });
+      res.cookie("token", token, {
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000,
+        sameSite: "None",
+      });
       res.json({
         message: "berhasil login",
         token,

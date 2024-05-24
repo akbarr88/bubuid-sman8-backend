@@ -1,3 +1,4 @@
+const { where } = require("sequelize");
 const { Konseling } = require("../models");
 const { User } = require("../models");
 const db = require("../models");
@@ -8,19 +9,37 @@ const jwt = require("jsonwebtoken");
 
 module.exports = {
   getAllLapor: async (req, res) => {
-    const lapor = await Lapor.findAll({
-      include: [
-        { model: db.User, attributes: ["id", "nama", "email"] },
-        {
-          model: db.Status,
-          attributes: ["id", "verified"], // Add the desired status field name here
-        },
-      ],
-    });
-    res.json({
-      message: "berhasil mendapatkan data Lapor",
-      data: lapor,
-    });
+    const page = parseInt(req.query.page) || 1;
+    const pageSize = parseInt(req.query.pageSize) || 10;
+    const offset = (page - 1) * pageSize;
+    const limit = pageSize;
+    try {
+      const statusCount = await Status.count({
+        where: { verified: true },
+      });
+      const lapor = await Lapor.findAndCountAll({
+        offset,
+        limit,
+        include: [
+          { model: db.User, attributes: ["id", "nama", "email"] },
+          {
+            model: db.Status,
+            attributes: ["id", "verified"], // Add the desired status field name here
+          },
+        ],
+      });
+      res.json({
+        totalLaporVerified: statusCount,
+        message: "berhasil mendapatkan data Lapor",
+        totalItems: lapor.count,
+        totalPages: Math.ceil(lapor.count / pageSize),
+        currentPage: page,
+        pageSize,
+        data: lapor.rows,
+      });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
   },
   getLaporById: async (req, res) => {
     const { id } = req.params;
