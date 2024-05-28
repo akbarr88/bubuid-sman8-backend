@@ -74,6 +74,14 @@ module.exports = {
           data: null,
         });
       }
+
+      if (user.role === "admin") {
+        return res.status(400).json({
+          message: `User dengan ID ${id} tidak dapat dihapus.`,
+          data: null,
+        });
+      }
+
       await user.destroy();
       res.json({
         message: `User dengan ID ${id} telah dihapus.`,
