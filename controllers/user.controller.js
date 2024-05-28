@@ -57,6 +57,34 @@ module.exports = {
     });
   },
 
+  deleteUser: async (req, res) => {
+    const role = req.user.role;
+    if (role !== "admin") {
+      return res.status(403).json({
+        message: "Anda bukan admin",
+      });
+    }
+    const { id } = req.params;
+
+    try {
+      const user = await User.findByPk(id);
+      if (!user) {
+        return res.status(404).json({
+          message: `User dengan ID ${id} tidak ditemukan.`,
+          data: null,
+        });
+      }
+      await user.destroy();
+      res.json({
+        message: `User dengan ID ${id} telah dihapus.`,
+      });
+    } catch (error) {
+      res.status(500).json({
+        message: "Terjadi kesalahan server.",
+      });
+    }
+  },
+
   getUserKonseling: async (req, res) => {
     const { id } = req.params;
 

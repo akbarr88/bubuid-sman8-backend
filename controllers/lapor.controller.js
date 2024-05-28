@@ -80,8 +80,14 @@ module.exports = {
   },
 
   deleteLapor: async (req, res) => {
+    const role = req.user.role;
+    const { id } = req.params;
+    if (role !== "admin") {
+      return res.status(403).json({
+        message: "Anda bukan admin",
+      });
+    }
     try {
-      const { id } = req.params;
       await Lapor.destroy({
         where: {
           id: id,
