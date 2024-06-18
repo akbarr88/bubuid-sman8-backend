@@ -45,6 +45,7 @@ module.exports = {
 
   register: async (req, res) => {
     const data = req.body;
+    console.log(data);
 
     const requiredFields = [
       "nama",
@@ -66,6 +67,7 @@ module.exports = {
     try {
       const hashPassword = bcrypt.hashSync(data.password, 10);
       data.password = hashPassword;
+      data.umur = Number(data.umur);
 
       await User.create(data);
 

@@ -8,6 +8,7 @@ const psikologRoute = require("./psikolog.route");
 const konselingRoute = require("./konseling.route");
 const laporRoute = require("./lapor.routes");
 const imageRouter = require("./image.route");
+const notificationRouter = require("./notification.route");
 
 route.get("/", (req, res) => {
   res.json("selamat datang di express sequelize migration");
@@ -20,5 +21,6 @@ route.use("/psikolog", psikologRoute);
 route.use("/konseling", konselingRoute);
 route.use("/lapor", laporRoute);
 route.use("/image", imageRouter);
+route.use("/notification", notificationRouter);
 
 module.exports = route;

@@ -3,19 +3,29 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
+  "email": "moonday@gmail.com",
+  "password": "moonday"
+}
+
+###
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
   "email": "bananaka@gmail.com",
   "password": "bananaka"
 }
+
 
 ###
 POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
- "nama" : "bananaka",
- "email" : "bananaka@gmail.com",
- "password" : "bananaka",
- "umur" : "15",
+ "nama" : "moonday",
+ "email" : "moonday@gmail.com",
+ "password" : "moonday",
+ "umur" : "17",
  "sekolah" : "smp6padang",
  "jenis_kelamin" : "pria"
 }
@@ -61,5 +71,16 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiO
 
 
 ###
-GET http://localhost:5500/lapor
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJiYW5hbmFrYUBnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcxNTg2OTA5OX0.q42WK0_yiqhhv6alX4MQdWUjuIRdNgQ30QyWL3Ct2uI
+GET http://localhost:3000/lapor
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQsImVtYWlsIjoiYmFuYW5ha2FAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzE4NjIzMzU0fQ.lH_hUGWtRbpZoLiOcnkSl4_J4ivKeKXjShXGqjporVE
+
+
+###
+PATCH  http://localhost:3000/notification/update
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgsImVtYWlsIjoibW9vbmRheUBnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcxODY4NjkwOX0.eGpA407ZvuNDY-XWIC34hEsmOm8oq4yT2DjS6ussdLA
+
+###
+GET  http://localhost:3000/notification
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgsImVtYWlsIjoibW9vbmRheUBnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcxODY4NjkwOX0.eGpA407ZvuNDY-XWIC34hEsmOm8oq4yT2DjS6ussdLA
+
+ 

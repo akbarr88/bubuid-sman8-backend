@@ -9,10 +9,16 @@ const jwt = require("jsonwebtoken");
 
 module.exports = {
   getAllLapor: async (req, res) => {
+    const filter = req.query.filter;
+    console.log(filter);
     const page = parseInt(req.query.page) || 1;
     const pageSize = parseInt(req.query.pageSize) || 10;
     const offset = (page - 1) * pageSize;
     const limit = pageSize;
+
+    const filterCondition =
+      filter === "true" ? true : filter === "false" ? false : null;
+
     try {
       const statusCount = await Status.count({
         where: { verified: true },
@@ -24,7 +30,8 @@ module.exports = {
           { model: db.User, attributes: ["id", "nama", "email"] },
           {
             model: db.Status,
-            attributes: ["id", "verified"], // Add the desired status field name here
+            attributes: ["id", "verified"],
+            where: filterCondition !== null && { verified: filterCondition },
           },
         ],
       });
@@ -67,8 +74,13 @@ module.exports = {
     const token = req.headers.authorization.split(" ")[1];
     const decoded = jwt.verify(token, process.env.JWT_KEY);
     const { id } = decoded;
-    const { tanggal, keterangan } = req.body;
-    const newLapor = await Lapor.create({ tanggal, keterangan, user_id: id });
+    const { tanggal, keterangan, img } = req.body;
+    const newLapor = await Lapor.create({
+      tanggal,
+      keterangan,
+      img,
+      user_id: id,
+    });
     await Status.create({
       verified: false,
       lapor_id: newLapor.id,
